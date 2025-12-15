@@ -1,5 +1,5 @@
 baseURL = "https://portfoliohubs.github.io/dental_circles/"
-defaultContentLanguage = "en"  # ✅ اللغة الافتراضية الإنجليزية
+defaultContentLanguage = "en"
 title = "Dental Circles"
 theme = []
 
@@ -15,7 +15,7 @@ theme = []
       direction = "rtl"
       logo_text = "Dental Circles"
       home_title = "الرئيسية"
-      keywords = "كورسات أسنان, Dental Circles, تجميل الأسنان, زراعة الأسنان, ورش عمل أسنان مصر"
+      keywords = "كورسات أسنان, Dental Circles, تجميل الأسنان, زراعة الأسنان"
       description = "دورات طب الأسنان المتقدمة. تعلم أحدث التقنيات واحتراف التطبيق العملي."
       copyright = "جميع الحقوق محفوظة لـ Dental Circles"
 
@@ -27,7 +27,7 @@ theme = []
       direction = "ltr"
       logo_text = "Dental Circles"
       home_title = "Home"
-      keywords = "Dental Workshops Egypt, Dental Circles, Operative Dentistry, Implantology Course"
+      keywords = "Dental Workshops Egypt, Dental Circles, Operative Dentistry"
       description = "Advanced Dental Courses. Master the latest techniques with hands-on training."
       copyright = "All Rights Reserved to Dental Circles"
 
@@ -37,7 +37,7 @@ theme = []
 [params]
   tagline = "Always Step Ahead"
   
-  # 🖼️ Logo & Favicon (للظهور في جوجل والصفحة)
+  # 🖼️ Logo
   logo_url = "https://placehold.co/400x400/3b82f6/ffffff?text=DC" 
   
   # 📞 Contact Info
@@ -51,11 +51,11 @@ theme = []
   location_ar = "القاهرة، مدينة نصر"
   location_en = "Cairo, Nasr City"
 
-  # [cite_start]📊 Analytics & SEO & Pixel (أضف الأكواد الخاصة بك هنا) [cite: 152]
+  # 📊 Analytics & Pixel
   google_analytics_id = ""       # G-XXXXXXXXXX
   facebook_pixel_id = ""         # XXXXXXXXXXXXXXX
-  google_console_verify = ""     # google-site-verification code
-  og_image = "/images/og-cover.jpg" # صورة المشاركة في السوشيال ميديا
+  google_console_verify = ""     
+  og_image = "/images/og-cover.jpg"
 
   # 🎨 Colors (Premium Medical Palette)
   [params.style]
