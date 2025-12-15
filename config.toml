@@ -158,3 +158,8 @@ theme = []
     price = "6,500 EGP"
     popular = true
     features = ["3 Days Workshop", "Training on Natural Teeth", "Rotary File Kit Included", "Certificate"]
+
+# ... (نهاية الملف)
+
+# 🚫 تعطيل الصفحات التي لا نحتاجها (الأرشيف والتصنيفات)
+disableKinds = ["taxonomy", "term", "section"]
