@@ -7,44 +7,83 @@
     
     <meta name="description" content="{{ .Params.description }}">
     <meta name="keywords" content="{{ .Params.keywords }}">
+    <meta name="author" content="{{ .Site.Title }}">
+    <link rel="canonical" href="{{ .Permalink }}">
+    
+    {{ if .Site.Params.google_console_verify }}
+    <meta name="google-site-verification" content="{{ .Site.Params.google_console_verify }}" />
+    {{ end }}
+
+    <meta property="og:title" content="{{ .Title }} - {{ .Site.Params.tagline }}" />
+    <meta property="og:description" content="{{ .Params.description }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ .Permalink }}" />
+    {{ if .Site.Params.og_image }}
+    <meta property="og:image" content="{{ .Site.BaseURL }}{{ .Site.Params.og_image }}" />
+    {{ end }}
+
     {{ if .Site.Params.logo_url }}<link rel="icon" href="{{ .Site.Params.logo_url }}" type="image/x-icon">{{ end }}
+
+    {{ if .Site.Params.google_analytics_id }}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.google_analytics_id }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ .Site.Params.google_analytics_id }}');
+    </script>
+    {{ end }}
+
+    {{ if .Site.Params.facebook_pixel_id }}
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '{{ .Site.Params.facebook_pixel_id }}');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id={{ .Site.Params.facebook_pixel_id }}&ev=PageView&noscript=1"
+    /></noscript>
+    {{ end }}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Montserrat:wght@400;600;700;900&display=swap');
         
-        /* Global Reset */
+        /* ✅ Global Reset Fixed */
         * { box-sizing: border-box; }
 
         :root {
-            /* 🌑 Dark Mode (Default) */
-            --bg-body: {{ .Site.Params.style.primary_bg }};
-            --bg-card: {{ .Site.Params.style.card_bg }};
-            --primary: {{ .Site.Params.style.brand_primary }};
-            --secondary: {{ .Site.Params.style.brand_secondary }};
-            --text-main: {{ .Site.Params.style.text_dark }};
-            --text-muted: {{ .Site.Params.style.text_muted }};
-            
-            /* Glass Navbar Dark */
-            --nav-bg: rgba(2, 6, 23, 0.85); 
-            --nav-border: rgba(255, 255, 255, 0.08);
-            --hero-overlay: radial-gradient(circle at top, #1e293b 0%, var(--bg-body) 100%);
-        }
-
-        /* ☀️ Light Mode */
-        body.light-mode {
+            /* ☀️ Light Mode (Default) */
             --bg-body: #ffffff;
             --bg-card: #f8fafc;
             --primary: #2563eb;       
             --secondary: #3b82f6;
             --text-main: #0f172a;     
             --text-muted: #475569;
-            
-            /* Glass Navbar Light */
             --nav-bg: rgba(255, 255, 255, 0.85);
             --nav-border: rgba(0, 0, 0, 0.05);
-            --hero-overlay: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%); 
+            --hero-overlay: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+        }
+
+        /* 🌑 Dark Mode */
+        body.dark-mode {
+            --bg-body: {{ .Site.Params.style.primary_bg }};
+            --bg-card: {{ .Site.Params.style.card_bg }};
+            --primary: {{ .Site.Params.style.brand_primary }};
+            --secondary: {{ .Site.Params.style.brand_secondary }};
+            --text-main: {{ .Site.Params.style.text_dark }};
+            --text-muted: {{ .Site.Params.style.text_muted }};
+            --nav-bg: rgba(2, 6, 23, 0.85); 
+            --nav-border: rgba(255, 255, 255, 0.08);
+            --hero-overlay: radial-gradient(circle at top, #1e293b 0%, var(--bg-body) 100%);
         }
         
         body { margin: 0; background: var(--bg-body); color: var(--text-main); font-family: 'Cairo', sans-serif; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
@@ -78,6 +117,7 @@
         
         .badge { background: rgba(59, 130, 246, 0.1); color: var(--primary); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; display: inline-block; margin-bottom: 25px; border: 1px solid rgba(59, 130, 246, 0.2); }
         
+        /* ✅ Line Height Adjustment (1.7) */
         .hero h1 { 
             font-size: clamp(2.5rem, 5vw, 4.5rem); 
             margin: 0 0 20px; 
@@ -119,14 +159,14 @@
         .ws-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
         .ws-title { font-size: 1.4rem; margin: 0 0 10px; color: var(--text-main); font-weight: 800; }
         
-        /* ✅ تم الإصلاح: إضافة text-align: start لضمان الاتجاه الصحيح */
+        /* ✅ Text Direction Fix */
         .ws-desc { 
             color: var(--text-muted); 
             line-height: 1.6; 
             margin-bottom: 20px; 
             flex-grow: 1; 
             font-size: 0.95rem; 
-            text-align: start; /* مهم جداً لدعم اللغتين */
+            text-align: start; 
         }
         
         .btn-card { display: block; text-align: center; padding: 12px; background: rgba(59, 130, 246, 0.1); color: var(--primary); border-radius: 10px; font-weight: bold; transition: 0.3s; margin-top: auto; border: 1px solid transparent; }
@@ -225,7 +265,7 @@
             <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
         </div>
-        <p style="margin-top:30px; font-size:0.85rem;">&copy; {{ now.Year }} Dental Circles. All Rights Reserved.</p>
+        <p style="margin-top:30px; font-size:0.85rem;">© {{ now.Year }} Dental Circles. All Rights Reserved.</p>
     </footer>
 
     <a href="https://wa.me/{{ .Site.Params.whatsapp }}" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
@@ -234,19 +274,19 @@
         const toggleBtn = document.getElementById('theme-toggle');
         const icon = toggleBtn.querySelector('i');
         const body = document.body;
-        
-        if (localStorage.getItem('theme') === 'light') {
-            body.classList.add('light-mode');
+
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
             icon.classList.replace('fa-moon', 'fa-sun');
         }
 
         toggleBtn.addEventListener('click', () => {
-            body.classList.toggle('light-mode');
-            if (body.classList.contains('light-mode')) {
-                localStorage.setItem('theme', 'light');
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
                 icon.classList.replace('fa-moon', 'fa-sun');
             } else {
-                localStorage.setItem('theme', 'dark');
+                localStorage.setItem('theme', 'light');
                 icon.classList.replace('fa-sun', 'fa-moon');
             }
         });
