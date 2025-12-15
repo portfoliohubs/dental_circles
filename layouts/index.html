@@ -78,7 +78,6 @@
         
         .badge { background: rgba(59, 130, 246, 0.1); color: var(--primary); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; display: inline-block; margin-bottom: 25px; border: 1px solid rgba(59, 130, 246, 0.2); }
         
-        /* ✅ تم التعديل هنا: زيادة line-height إلى 1.7 */
         .hero h1 { 
             font-size: clamp(2.5rem, 5vw, 4.5rem); 
             margin: 0 0 20px; 
@@ -119,7 +118,16 @@
         .ws-img { height: 240px; background-size: cover; background-position: center; position: relative; }
         .ws-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
         .ws-title { font-size: 1.4rem; margin: 0 0 10px; color: var(--text-main); font-weight: 800; }
-        .ws-desc { color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; flex-grow: 1; font-size: 0.95rem; }
+        
+        /* ✅ تم الإصلاح: إضافة text-align: start لضمان الاتجاه الصحيح */
+        .ws-desc { 
+            color: var(--text-muted); 
+            line-height: 1.6; 
+            margin-bottom: 20px; 
+            flex-grow: 1; 
+            font-size: 0.95rem; 
+            text-align: start; /* مهم جداً لدعم اللغتين */
+        }
         
         .btn-card { display: block; text-align: center; padding: 12px; background: rgba(59, 130, 246, 0.1); color: var(--primary); border-radius: 10px; font-weight: bold; transition: 0.3s; margin-top: auto; border: 1px solid transparent; }
         .btn-card:hover { background: var(--primary); color: #fff; }
@@ -199,7 +207,7 @@
                 <div class="ws-img" style="background-image: url('{{ $val.image }}');"></div>
                 <div class="ws-body">
                     <h3 class="ws-title">{{ if eq $.Site.Language.Lang "ar" }}{{ $val.title_ar }}{{ else }}{{ $val.title_en }}{{ end }}</h3>
-                    <p class="ws-desc">{{ if eq $.Site.Language.Lang "ar" }}{{ $val.desc_ar }}{{ else }}{{ $val.desc_en }}{{ end }}</p>
+                    <p class="ws-desc" dir="auto">{{ if eq $.Site.Language.Lang "ar" }}{{ $val.desc_ar }}{{ else }}{{ $val.desc_en }}{{ end }}</p>
                     <a href="{{ $.Site.BaseURL }}en/workshops/{{ $key }}/" class="btn-card">
                         {{ if eq $.Site.Language.Lang "ar" }}التفاصيل والحجز{{ else }}Details & Booking{{ end }}
                     </a>
