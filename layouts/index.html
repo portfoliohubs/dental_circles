@@ -88,10 +88,11 @@
             {{ .Site.Params.logo_text }}
             <span>{{ .Site.Params.tagline }}</span>
         </a>
+        
         <div class="lang-switch">
-            {{ range .Site.Languages }}
-                {{ if ne .RelPermalink $.Site.Language.RelPermalink }}
-                    <a href="{{ .RelPermalink }}">{{ .LanguageName }}</a>
+            {{ range .Site.Sites }}
+                {{ if ne .Language.Lang $.Site.Language.Lang }}
+                    <a href="{{ .Home.RelPermalink }}">{{ .Language.LanguageName }}</a>
                 {{ end }}
             {{ end }}
         </div>
