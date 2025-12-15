@@ -183,7 +183,7 @@
                     <h3 class="ws-title">{{ if eq $.Site.Language.Lang "ar" }}{{ $val.title_ar }}{{ else }}{{ $val.title_en }}{{ end }}</h3>
                     <p class="ws-desc">{{ if eq $.Site.Language.Lang "ar" }}{{ $val.desc_ar }}{{ else }}{{ $val.desc_en }}{{ end }}</p>
                     
-                    <a href="{{ $.Site.BaseURL }}{{ $.Site.Language.Lang }}/workshops/{{ $key }}/" class="btn-card">
+                    <a href="{{ $.Site.BaseURL }}en/workshops/{{ $key }}/" class="btn-card">
                         {{ if eq $.Site.Language.Lang "ar" }}عرض التفاصيل والحجز{{ else }}View Details & Book{{ end }}
                     </a>
                 </div>
