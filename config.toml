@@ -1,0 +1,160 @@
+baseURL = "https://portfoliohubs.github.io/dental_circles/"
+defaultContentLanguage = "ar"
+title = "Dental Circles"
+theme = []
+
+# -----------------------------------------------------------
+# 🌍 إعدادات اللغات
+# -----------------------------------------------------------
+[languages]
+  [languages.ar]
+    languageName = "العربية"
+    weight = 1
+    contentDir = "content/ar"
+    [languages.ar.params]
+      direction = "rtl"
+      logo_text = "Dental Circles"
+      home_title = "الرئيسية"
+      keywords = "كورسات أسنان, Dental Circles, تجميل الأسنان, زراعة الأسنان, ورش عمل أسنان مصر"
+      description = "دورات طب الأسنان المتقدمة. تعلم أحدث التقنيات واحتراف التطبيق العملي."
+      copyright = "جميع الحقوق محفوظة لـ Dental Circles"
+
+  [languages.en]
+    languageName = "English"
+    weight = 2
+    contentDir = "content/en"
+    [languages.en.params]
+      direction = "ltr"
+      logo_text = "Dental Circles"
+      home_title = "Home"
+      keywords = "Dental Workshops Egypt, Dental Circles, Operative Dentistry, Implantology Course"
+      description = "Advanced Dental Courses. Master the latest techniques with hands-on training."
+      copyright = "All Rights Reserved to Dental Circles"
+
+# -----------------------------------------------------------
+# ⚙️ إعدادات الموقع العامة
+# -----------------------------------------------------------
+[params]
+  tagline = "Always Step Ahead"
+  
+  # 📞 Contact Info
+  whatsapp = "201062656492"
+  phone = "+201062656492"
+  email = "info@dentalcircles.com"
+  location_ar = "القاهرة، مدينة نصر"
+  location_en = "Cairo, Nasr City"
+
+  # 🎨 Colors (Blue & Gold Theme)
+  [params.style]
+    primary_bg = "#0f172a"      # Navy Blue
+    card_bg = "#1e293b"         # Darker Slate
+    accent = "#d4af37"          # Gold
+    text = "#f8fafc"            # White-ish
+    text_muted = "#94a3b8"      # Gray
+
+  # 📊 Marketing
+  google_analytics_id = ""
+  facebook_pixel_id = ""
+
+# -----------------------------------------------------------
+# 🏠 محتوى الصفحة الرئيسية (Homepage)
+# -----------------------------------------------------------
+[params.home]
+  [params.home.hero]
+    badge_ar = "🔥 التسجيل متاح الآن لفترة محدودة"
+    title_ar = "اصنع مستقبلك في طب الأسنان"
+    subtitle_ar = "منصة التعليم المستمر الأولى. تدريب عملي مكثف على أيدي نخبة من الخبراء."
+    btn_ar = "استكشف الورش المتاحة"
+    
+    badge_en = "🔥 Registration Open for Limited Time"
+    title_en = "Craft Your Dental Future"
+    subtitle_en = "The #1 Continuous Education Platform. Intensive hands-on training by experts."
+    btn_en = "Explore Workshops"
+
+  # المميزات (Why Choose Us)
+  [[params.home.features]]
+    icon = "fa-hand-holding-medical"
+    title_ar = "تدريب عملي 100%"
+    title_en = "100% Hands-on"
+  [[params.home.features]]
+    icon = "fa-user-md"
+    title_ar = "إشراف استشاريين"
+    title_en = "Expert Supervision"
+  [[params.home.features]]
+    icon = "fa-certificate"
+    title_ar = "شهادات معتمدة"
+    title_en = "Accredited Certificates"
+  [[params.home.features]]
+    icon = "fa-users"
+    title_ar = "مجموعات صغيرة"
+    title_en = "Small Groups"
+
+# -----------------------------------------------------------
+# 🦷 قاعدة بيانات الورش (The Database)
+# -----------------------------------------------------------
+
+# Workshop 1: Operative
+[params.workshops.operative]
+  active = true
+  image = "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80"
+  
+  # General Info (Home Card)
+  title_ar = "كورس الحشوات التجميلية"
+  desc_ar = "احترف الـ Layering والـ Isolation في يومين مكثفين."
+  title_en = "Advanced Operative Course"
+  desc_en = "Master Layering & Isolation in 2 intensive days."
+  
+  # Landing Page Details
+  date = "20 - 21 March 2025"
+  seats = "12 Seats Only"
+  instructor_name = "Dr. Ahmed Hassan"
+  instructor_bio = "PhD in Operative Dentistry, 15 years of clinical experience."
+  instructor_img = "https://randomuser.me/api/portraits/men/32.jpg"
+
+  # Learning Points
+  syllabus_ar = ["تجهيز الأسنان (Cavity Prep)", "عزل المطاط (Rubber Dam)", "حشوات أمامية (Anterior)", "Finishing & Polishing"]
+  syllabus_en = ["Advanced Cavity Prep", "Rubber Dam Mastery", "Anterior Aesthetics", "Finishing & Polishing"]
+
+  # Packages
+  [[params.workshops.operative.packages]]
+    name = "Standard"
+    price = "3,500 EGP"
+    popular = false
+    features = ["Attendance for 2 Days", "Coffee Break & Lunch", "Certificate"]
+  
+  [[params.workshops.operative.packages]]
+    name = "VIP Access"
+    price = "5,000 EGP"
+    popular = true
+    features = ["Everything in Standard", "Front Row Seats", "Premium Dental Kit", "1-on-1 Mentorship"]
+
+# Workshop 2: Endo
+[params.workshops.endo]
+  active = true
+  image = "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80"
+  
+  title_ar = "كورس علاج الجذور (Rotary)"
+  desc_ar = "تعلم أحدث بروتوكولات الـ Rotary من الألف إلى الياء."
+  title_en = "Rotary Endodontics"
+  desc_en = "Master modern Rotary protocols from A to Z."
+  
+  date = "25 - 27 March 2025"
+  seats = "10 Seats Only"
+  instructor_name = "Dr. Sarah Ali"
+  instructor_bio = "MSc Endodontics, Key Opinion Leader."
+  instructor_img = "https://randomuser.me/api/portraits/women/44.jpg"
+
+  syllabus_ar = ["Access Cavity", "Glide Path Management", "Rotary Shaping", "Obturation Techniques"]
+  syllabus_en = ["Access Cavity", "Glide Path Management", "Rotary Shaping", "Obturation Techniques"]
+
+  [[params.workshops.endo.packages]]
+    name = "Basic"
+    price = "4,000 EGP"
+    popular = false
+    features = ["3 Days Workshop", "Training on Resin Blocks", "Certificate"]
+
+  [[params.workshops.endo.packages]]
+    name = "Advanced"
+    price = "6,500 EGP"
+    popular = true
+    features = ["3 Days Workshop", "Training on Natural Teeth", "Rotary File Kit Included", "Certificate"]
