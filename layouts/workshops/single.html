@@ -1,21 +1,64 @@
 {{ $key := .File.BaseFileName }}
 {{ $data := index .Site.Params.workshops $key }}
+{{ $isArabic := eq .Site.Language.Lang "ar" }}
+{{ $title := cond $isArabic $data.title_ar $data.title_en }}
+{{ $desc := cond $isArabic $data.desc_ar $data.desc_en }}
+{{ $syllabus := cond $isArabic $data.syllabus_ar $data.syllabus_en }}
+{{ $btnText := cond $isArabic "احجز الآن" "Book Now" }}
 
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}" dir="{{ .Params.direction }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ if eq .Site.Language.Lang "ar" }}{{ $data.title_ar }}{{ else }}{{ $data.title_en }}{{ end }}</title>
+    <title>{{ $title }} | Dental Circles</title>
     
-    <meta name="description" content="{{ if eq .Site.Language.Lang "ar" }}{{ $data.desc_ar }}{{ else }}{{ $data.desc_en }}{{ end }}">
+    <meta name="description" content="{{ $desc }}">
+    <link rel="canonical" href="{{ .Permalink }}">
+    
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:description" content="{{ $desc }}">
+    <meta property="og:image" content="{{ $data.image }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Dental Circles">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $title }}">
+    <meta name="twitter:description" content="{{ $desc }}">
+    <meta name="twitter:image" content="{{ $data.image }}">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationEvent",
+      "name": "{{ $title }}",
+      "description": "{{ $desc }}",
+      "startDate": "{{ $data.date }}",
+      "image": "{{ $data.image }}",
+      "performer": {
+        "@type": "Person",
+        "name": "{{ $data.instructor_name }}"
+      },
+      "organizer": {
+        "@type": "Organization",
+        "name": "Dental Circles",
+        "url": "{{ .Site.BaseURL }}"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "{{ .Permalink }}",
+        "availability": "https://schema.org/InStock"
+      }
+    }
+    </script>
+
     {{ if .Site.Params.logo_url }}<link rel="icon" href="{{ .Site.Params.logo_url }}" type="image/x-icon">{{ end }}
 
     {{ if .Site.Params.google_analytics_id }}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.google_analytics_id }}"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ .Site.Params.google_analytics_id }}');</script>
     {{ end }}
-
     {{ if .Site.Params.facebook_pixel_id }}
     <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','{{ .Site.Params.facebook_pixel_id }}');fbq('track','PageView');</script>
     {{ end }}
@@ -25,7 +68,6 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Montserrat:wght@400;700;900&display=swap');
         
-        /* ✅ إصلاح خروج الأزرار عن النص */
         * { box-sizing: border-box; }
 
         :root {
@@ -37,76 +79,106 @@
             --text-muted: #475569;
             --border: rgba(0,0,0,0.05);
             --header-gradient: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+            --inst-border: #ffffff;
+        }
+
+        /* 🌑 Dark Mode */
+        body.dark-mode {
+            --bg-body: {{ .Site.Params.style.primary_bg }};
+            --bg-card: {{ .Site.Params.style.card_bg }};
+            --primary: {{ .Site.Params.style.brand_secondary }};
+            --text-main: {{ .Site.Params.style.text_dark }};
+            --text-muted: #94a3b8;
+            --border: rgba(255,255,255,0.1);
+            --header-gradient: radial-gradient(circle at top, #1e293b 0%, {{ .Site.Params.style.primary_bg }} 100%);
+            --inst-border: {{ .Site.Params.style.card_bg }};
         }
         
-        body { background: var(--bg-body); color: var(--text-main); font-family: 'Cairo', sans-serif; margin: 0; padding-bottom: 100px; }
+        body { background: var(--bg-body); color: var(--text-main); font-family: 'Cairo', sans-serif; margin: 0; padding-bottom: 100px; transition: 0.3s; }
         html[lang="en"] body { font-family: 'Montserrat', sans-serif; }
         
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
         
         /* Header */
-        .lp-header { text-align: center; padding: 60px 20px 40px; background: var(--header-gradient); border-bottom: 1px solid var(--border); position: relative; }
+        .lp-header { text-align: center; padding: 60px 20px 40px; background: var(--header-gradient); border-bottom: 1px solid var(--border); position: relative; transition: 0.3s; }
         
-        .inst-avatar { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--primary); object-fit: cover; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2); margin-bottom: 15px; }
+        /* Navigation Icons */
+        .nav-icon { position: absolute; top: 20px; color: var(--text-main); font-size: 1.2rem; opacity: 0.7; transition: 0.3s; cursor: pointer; background: none; border: none; padding: 5px; }
+        .nav-icon:hover { opacity: 1; transform: scale(1.1); color: var(--primary); }
+        .nav-back { left: 20px; }
+        .nav-theme { right: 20px; }
+        {{ if eq .Params.direction "rtl" }}
+        .nav-back { left: auto; right: 20px; }
+        .nav-theme { right: auto; left: 20px; }
+        {{ end }}
+
+        .inst-avatar { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--inst-border); object-fit: cover; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2); margin-bottom: 15px; }
         .inst-name { font-size: 1.8rem; font-weight: 900; color: var(--text-main); margin: 0; }
         .inst-bio { color: var(--primary); font-weight: 600; margin-top: 5px; opacity: 0.9; }
 
         .lp-title { font-size: 2.2rem; margin: 40px 0 10px; line-height: 1.4; border-top: 1px solid var(--border); padding-top: 30px; }
-        .lp-desc { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+        .lp-desc { color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
         .lp-meta { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
-        .meta-item { background: #fff; padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; border: 1px solid var(--border); color: var(--text-muted); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .meta-item { background: var(--bg-card); padding: 8px 20px; border-radius: 50px; font-size: 0.9rem; border: 1px solid var(--border); color: var(--text-muted); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .meta-item i { color: var(--primary); margin-right: 5px; }
         
-        .box { background: var(--bg-card); padding: 30px; border-radius: 20px; margin: 30px 0; border: 1px solid var(--border); }
+        /* Syllabus Box */
+        .box { background: var(--bg-card); padding: 30px; border-radius: 20px; margin: 30px 0; border: 1px solid var(--border); transition: 0.3s; }
         .check-list { list-style: none; padding: 0; margin: 0; }
         .check-list li { padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 15px; font-size: 1.05rem; }
         .check-list i { color: var(--primary); flex-shrink: 0; }
 
+        /* Packages */
         .pkg-grid { display: grid; gap: 20px; }
         .pkg-card { background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--border); position: relative; transition: 0.3s; }
         .pkg-card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .pkg-card.popular { border: 2px solid var(--primary); background: #eff6ff; }
+        .pkg-card.popular { border: 2px solid var(--primary); background: rgba(59, 130, 246, 0.05); }
         .pop-badge { position: absolute; top: -12px; right: 20px; background: var(--primary); color: #fff; font-size: 0.75rem; font-weight: bold; padding: 4px 12px; border-radius: 20px; }
         
         .price { font-size: 2.2rem; font-weight: 900; color: var(--text-main); margin: 15px 0; }
         
-        /* ✅ محاذاة الزر */
         .btn-book { display: block; width: 100%; padding: 16px; background: var(--primary); color: #fff; text-align: center; border-radius: 12px; font-weight: bold; text-decoration: none; margin-top: 25px; transition: 0.3s; box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2); }
         .btn-book:hover { box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4); transform: translateY(-2px); }
         
+        /* Floating Buttons */
         .fabs { position: fixed; bottom: 20px; right: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 100; }
-        .fab { width: 50px; height: 50px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main); font-size: 20px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid var(--border); }
+        .fab { width: 50px; height: 50px; background: var(--bg-card); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--text-main); font-size: 20px; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid var(--border); }
         .fab.wa { background: #25D366; border: none; color: #fff; }
     </style>
 </head>
 <body>
     <div class="lp-header">
-        <a href="{{ .Site.BaseURL }}" style="position: absolute; top: 20px; left: 20px; color:var(--text-main); font-size:1.2rem; opacity:0.6;">
+        {{ $enBaseURL := "" }}{{ range .Site.Sites }}{{ if eq .Language.Lang "en" }}{{ $enBaseURL = .BaseURL }}{{ end }}{{ end }}
+        <a href="{{ if eq .Site.Language.Lang "ar" }}{{ .Site.BaseURL }}{{ else }}{{ $enBaseURL }}{{ end }}" class="nav-icon nav-back">
             <i class="fas fa-arrow-left"></i>
         </a>
+        
+        <button id="theme-toggle" class="nav-icon nav-theme">
+            <i class="fas fa-moon"></i>
+        </button>
+
         <img src="{{ $data.instructor_img }}" class="inst-avatar" alt="{{ $data.instructor_name }}">
         <h2 class="inst-name">{{ $data.instructor_name }}</h2>
         <div class="inst-bio">{{ $data.instructor_bio }}</div>
-        <h1 class="lp-title">{{ if eq .Site.Language.Lang "ar" }}{{ $data.title_ar }}{{ else }}{{ $data.title_en }}{{ end }}</h1>
-        <p class="lp-desc">{{ if eq .Site.Language.Lang "ar" }}{{ $data.desc_ar }}{{ else }}{{ $data.desc_en }}{{ end }}</p>
+        <h1 class="lp-title">{{ $title }}</h1>
+        <p class="lp-desc">{{ $desc }}</p>
         <div class="lp-meta">
             <span class="meta-item"><i class="far fa-calendar"></i> {{ $data.date }}</span>
             <span class="meta-item"><i class="fas fa-users"></i> {{ $data.seats }}</span>
         </div>
     </div>
+    
     <div class="container">
         <div class="box">
-            <h3>{{ if eq .Site.Language.Lang "ar" }}ماذا ستتعلم؟{{ else }}What You Will Learn{{ end }}</h3>
+            <h3>{{ if $isArabic }}ماذا ستتعلم؟{{ else }}What You Will Learn{{ end }}</h3>
             <ul class="check-list">
-                {{ if eq .Site.Language.Lang "ar" }}
-                    {{ range $data.syllabus_ar }}<li><i class="fas fa-check-circle"></i> {{ . }}</li>{{ end }}
-                {{ else }}
-                    {{ range $data.syllabus_en }}<li><i class="fas fa-check-circle"></i> {{ . }}</li>{{ end }}
-                {{ end }}
+                {{ range $syllabus }}<li><i class="fas fa-check-circle"></i> {{ . }}</li>{{ end }}
             </ul>
         </div>
-        <h3 style="text-align:center; margin-bottom: 30px;">{{ if eq .Site.Language.Lang "ar" }}اختر الباقة المناسبة{{ else }}Select Your Package{{ end }}</h3>
+        
+        <h3 style="text-align:center; margin-bottom: 30px;">{{ if $isArabic }}اختر الباقة المناسبة{{ else }}Select Your Package{{ end }}</h3>
+        
         <div class="pkg-grid">
             {{ range $data.packages }}
             <div class="pkg-card {{ if .popular }}popular{{ end }}">
@@ -117,15 +189,38 @@
                     {{ range .features }}<li><i class="fas fa-star" style="font-size:0.8rem"></i> {{ . }}</li>{{ end }}
                 </ul>
                 <a href="https://wa.me/{{ $.Site.Params.whatsapp }}?text=Booking: {{ .name }}" class="btn-book">
-                    {{ if eq $.Site.Language.Lang "ar" }}احجز الآن{{ else }}Book Now{{ end }}
+                    {{ $btnText }}
                 </a>
             </div>
             {{ end }}
         </div>
     </div>
+    
     <div class="fabs">
         <a href="tel:{{ .Site.Params.phone }}" class="fab"><i class="fas fa-phone"></i></a>
         <a href="https://wa.me/{{ .Site.Params.whatsapp }}" class="fab wa"><i class="fab fa-whatsapp"></i></a>
     </div>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const icon = toggleBtn.querySelector('i');
+        const body = document.body;
+
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                localStorage.setItem('theme', 'light');
+                icon.classList.replace('fa-sun', 'fa-moon');
+            }
+        });
+    </script>
 </body>
 </html>
