@@ -11,6 +11,10 @@
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Montserrat:wght@400;700;900&display=swap');
+        
+        /* 🔥 FIX: يمنع خروج الأزرار عن حدود الكارد ويضبط المحاذاة */
+        * { box-sizing: border-box; }
+
         :root {
             /* Dark Mode Variables */
             --bg-body: {{ .Site.Params.style.primary_bg }};
@@ -26,14 +30,14 @@
         
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
         
-        /* 🔥 Header - Centered & Premium */
+        /* Header */
         .lp-header { text-align: center; padding: 60px 20px 40px; background: var(--header-gradient); border-bottom: 1px solid var(--border); position: relative; }
         
         .inst-avatar { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--primary); object-fit: cover; box-shadow: 0 0 30px rgba(59, 130, 246, 0.3); margin-bottom: 15px; }
         .inst-name { font-size: 1.8rem; font-weight: 900; color: var(--text-main); margin: 0; }
         .inst-bio { color: var(--primary); font-weight: 600; margin-top: 5px; opacity: 0.9; }
 
-        .lp-title { font-size: 2.2rem; margin: 40px 0 10px; line-height: 1.2; border-top: 1px solid var(--border); padding-top: 30px; }
+        .lp-title { font-size: 2.2rem; margin: 40px 0 10px; line-height: 1.4; border-top: 1px solid var(--border); padding-top: 30px; }
         .lp-desc { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
 
         .lp-meta { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px; }
@@ -42,9 +46,9 @@
         
         /* Syllabus Box */
         .box { background: var(--bg-card); padding: 30px; border-radius: 20px; margin: 30px 0; border: 1px solid var(--border); }
-        .check-list { list-style: none; padding: 0; }
+        .check-list { list-style: none; padding: 0; margin: 0; }
         .check-list li { padding: 12px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 15px; font-size: 1.05rem; }
-        .check-list i { color: var(--primary); }
+        .check-list i { color: var(--primary); flex-shrink: 0; }
 
         /* Packages */
         .pkg-grid { display: grid; gap: 20px; }
@@ -54,7 +58,9 @@
         .pop-badge { position: absolute; top: -12px; right: 20px; background: var(--primary); color: #fff; font-size: 0.75rem; font-weight: bold; padding: 4px 12px; border-radius: 20px; }
         
         .price { font-size: 2.2rem; font-weight: 900; color: var(--text-main); margin: 15px 0; }
-        .btn-book { display: block; width: 100%; padding: 16px; background: var(--primary); color: #fff; text-align: center; border-radius: 12px; font-weight: bold; text-decoration: none; margin-top: 25px; transition: 0.3s; }
+        
+        /* ✅ تم تعديل الزر ليكون في المنتصف تماماً */
+        .btn-book { display: block; width: 100%; padding: 16px; background: var(--primary); color: #fff; text-align: center; border-radius: 12px; font-weight: bold; text-decoration: none; margin-top: 25px; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .btn-book:hover { box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3); transform: translateY(-2px); }
         
         /* Floating Buttons */
