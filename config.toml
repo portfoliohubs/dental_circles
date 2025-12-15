@@ -1,37 +1,43 @@
 baseURL = "https://portfoliohubs.github.io/dental_circles/"
-defaultContentLanguage = "en"
+defaultContentLanguage = "en"  # ✅ اللغة الافتراضية الإنجليزية
 title = "Dental Circles"
 theme = []
 
+# -----------------------------------------------------------
+# 🌍 إعدادات اللغات
+# -----------------------------------------------------------
 [languages]
   [languages.ar]
     languageName = "العربية"
-    weight = 1
+    weight = 2
     contentDir = "content/ar"
     [languages.ar.params]
       direction = "rtl"
       logo_text = "Dental Circles"
       home_title = "الرئيسية"
-      keywords = "كورسات أسنان, Dental Circles, تجميل الأسنان"
-      description = "دورات طب الأسنان المتقدمة. تعلم أحدث التقنيات."
+      keywords = "كورسات أسنان, Dental Circles, تجميل الأسنان, زراعة الأسنان, ورش عمل أسنان مصر"
+      description = "دورات طب الأسنان المتقدمة. تعلم أحدث التقنيات واحتراف التطبيق العملي."
       copyright = "جميع الحقوق محفوظة لـ Dental Circles"
 
   [languages.en]
     languageName = "English"
-    weight = 2
+    weight = 1
     contentDir = "content/en"
     [languages.en.params]
       direction = "ltr"
       logo_text = "Dental Circles"
       home_title = "Home"
-      keywords = "Dental Workshops Egypt, Dental Circles"
-      description = "Advanced Dental Courses. Master the latest techniques."
+      keywords = "Dental Workshops Egypt, Dental Circles, Operative Dentistry, Implantology Course"
+      description = "Advanced Dental Courses. Master the latest techniques with hands-on training."
       copyright = "All Rights Reserved to Dental Circles"
 
+# -----------------------------------------------------------
+# ⚙️ إعدادات الموقع العامة
+# -----------------------------------------------------------
 [params]
   tagline = "Always Step Ahead"
   
-  # 🖼️ Logo
+  # 🖼️ Logo & Favicon (للظهور في جوجل والصفحة)
   logo_url = "https://placehold.co/400x400/3b82f6/ffffff?text=DC" 
   
   # 📞 Contact Info
@@ -39,30 +45,35 @@ theme = []
   phone = "+201062656492"
   email = "info@dentalcircles.com"
   
-  # 📍 إعدادات الخريطة (تم تفعيلها)
+  # 📍 Map Settings
   enable_map = true
   map_url = "https://goo.gl/maps/Qj8x5zX5zX5zX5zX5" 
   location_ar = "القاهرة، مدينة نصر"
   location_en = "Cairo, Nasr City"
 
-  # 🎨 الألوان الجديدة (Premium Medical Palette)
+  # [cite_start]📊 Analytics & SEO & Pixel (أضف الأكواد الخاصة بك هنا) [cite: 152]
+  google_analytics_id = ""       # G-XXXXXXXXXX
+  facebook_pixel_id = ""         # XXXXXXXXXXXXXXX
+  google_console_verify = ""     # google-site-verification code
+  og_image = "/images/og-cover.jpg" # صورة المشاركة في السوشيال ميديا
+
+  # 🎨 Colors (Premium Medical Palette)
   [params.style]
     # الوضع الليلي (Dark Mode)
-    primary_bg = "#020617"      # كحلي قريب للاسود (فخم جداً)
-    card_bg = "#0f172a"         # كحلي رمادي للكروت
+    primary_bg = "#020617"      # كحلي داكن جداً
+    card_bg = "#0f172a"         # كحلي رمادي
     
     # ألوان الهوية
-    brand_primary = "#3b82f6"   # أزرق ملكي (للأزرار والعناوين)
-    brand_secondary = "#60a5fa" # أزرق سماوي (للتفاصيل)
+    brand_primary = "#3b82f6"   # أزرق ملكي (للأزرار)
+    brand_secondary = "#60a5fa" # أزرق سماوي
     
     # النصوص
     text_dark = "#f8fafc"       # أبيض للنصوص في الوضع الليلي
     text_muted = "#94a3b8"      # رمادي فاتح
 
-  # 📊 Analytics
-  google_analytics_id = ""
-  facebook_pixel_id = ""
-
+# -----------------------------------------------------------
+# 🏠 محتوى الصفحة الرئيسية
+# -----------------------------------------------------------
 [params.home]
   [params.home.hero]
     badge_ar = "🔥 التسجيل متاح الآن لفترة محدودة"
@@ -92,6 +103,9 @@ theme = []
     title_ar = "مجموعات صغيرة"
     title_en = "Small Groups"
 
+# -----------------------------------------------------------
+# 🦷 قاعدة بيانات الورش
+# -----------------------------------------------------------
 [params.workshops.operative]
   active = true
   image = "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80"
