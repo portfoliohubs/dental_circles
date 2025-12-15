@@ -47,9 +47,6 @@
     fbq('init', '{{ .Site.Params.facebook_pixel_id }}');
     fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id={{ .Site.Params.facebook_pixel_id }}&ev=PageView&noscript=1"
-    /></noscript>
     {{ end }}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -57,23 +54,24 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Montserrat:wght@400;600;700;900&display=swap');
         
-        /* ✅ Global Reset Fixed */
         * { box-sizing: border-box; }
 
         :root {
-            /* ☀️ Light Mode (Default) */
+            /* ☀️ الوضع المضيء (الافتراضي الآن) */
             --bg-body: #ffffff;
             --bg-card: #f8fafc;
             --primary: #2563eb;       
             --secondary: #3b82f6;
             --text-main: #0f172a;     
             --text-muted: #475569;
-            --nav-bg: rgba(255, 255, 255, 0.85);
+            /* ✅ Glass Navbar Light */
+            --nav-bg: rgba(255, 255, 255, 0.9);
             --nav-border: rgba(0, 0, 0, 0.05);
-            --hero-overlay: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
+            /* ✅ خلفية أقوى قليلاً لزيادة التباين */
+            --hero-overlay: linear-gradient(180deg, #e0f2fe 0%, #ffffff 100%);
         }
 
-        /* 🌑 Dark Mode */
+        /* 🌑 الوضع المظلم */
         body.dark-mode {
             --bg-body: {{ .Site.Params.style.primary_bg }};
             --bg-card: {{ .Site.Params.style.card_bg }};
@@ -81,7 +79,7 @@
             --secondary: {{ .Site.Params.style.brand_secondary }};
             --text-main: {{ .Site.Params.style.text_dark }};
             --text-muted: {{ .Site.Params.style.text_muted }};
-            --nav-bg: rgba(2, 6, 23, 0.85); 
+            --nav-bg: rgba(2, 6, 23, 0.9); 
             --nav-border: rgba(255, 255, 255, 0.08);
             --hero-overlay: radial-gradient(circle at top, #1e293b 0%, var(--bg-body) 100%);
         }
@@ -111,17 +109,17 @@
         .theme-toggle { background: none; border: none; color: var(--text-main); cursor: pointer; font-size: 1.2rem; transition: 0.3s; padding: 5px; }
         .theme-toggle:hover { color: var(--primary); transform: rotate(20deg); }
 
-        /* Hero Section */
+        /* Hero */
         .hero { min-height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 20px; background: var(--hero-overlay); position: relative; }
         .hero-content { max-width: 900px; animation: fadeIn 0.8s ease-out; position: relative; z-index: 1; }
         
         .badge { background: rgba(59, 130, 246, 0.1); color: var(--primary); padding: 8px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 700; display: inline-block; margin-bottom: 25px; border: 1px solid rgba(59, 130, 246, 0.2); }
         
-        /* ✅ Line Height Adjustment (1.7) */
+        /* ✅ إصلاح المسافة بين السطور */
         .hero h1 { 
             font-size: clamp(2.5rem, 5vw, 4.5rem); 
             margin: 0 0 20px; 
-            line-height: 1.7; 
+            line-height: 1.7; /* مسافة مريحة */
             color: var(--text-main); 
             font-weight: 900; 
         }
@@ -159,7 +157,7 @@
         .ws-body { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
         .ws-title { font-size: 1.4rem; margin: 0 0 10px; color: var(--text-main); font-weight: 800; }
         
-        /* ✅ Text Direction Fix */
+        /* ✅ إصلاح النصوص المختلطة */
         .ws-desc { 
             color: var(--text-muted); 
             line-height: 1.6; 
@@ -248,7 +246,15 @@
                 <div class="ws-body">
                     <h3 class="ws-title">{{ if eq $.Site.Language.Lang "ar" }}{{ $val.title_ar }}{{ else }}{{ $val.title_en }}{{ end }}</h3>
                     <p class="ws-desc" dir="auto">{{ if eq $.Site.Language.Lang "ar" }}{{ $val.desc_ar }}{{ else }}{{ $val.desc_en }}{{ end }}</p>
-                    <a href="{{ $.Site.BaseURL }}en/workshops/{{ $key }}/" class="btn-card">
+                    
+                    {{ $enBaseURL := "" }}
+                    {{ range .Site.Sites }}
+                        {{ if eq .Language.Lang "en" }}
+                            {{ $enBaseURL = .BaseURL }}
+                        {{ end }}
+                    {{ end }}
+                    
+                    <a href="{{ $enBaseURL }}workshops/{{ $key }}/" class="btn-card">
                         {{ if eq $.Site.Language.Lang "ar" }}التفاصيل والحجز{{ else }}Details & Booking{{ end }}
                     </a>
                 </div>
@@ -265,7 +271,7 @@
             <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
         </div>
-        <p style="margin-top:30px; font-size:0.85rem;">© {{ now.Year }} Dental Circles. All Rights Reserved.</p>
+        <p style="margin-top:30px; font-size:0.85rem;">&copy; {{ now.Year }} Dental Circles. All Rights Reserved.</p>
     </footer>
 
     <a href="https://wa.me/{{ .Site.Params.whatsapp }}" class="wa-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
@@ -275,6 +281,7 @@
         const icon = toggleBtn.querySelector('i');
         const body = document.body;
 
+        // التحقق من الوضع المحفوظ (الافتراضي الآن هو المضيء)
         if (localStorage.getItem('theme') === 'dark') {
             body.classList.add('dark-mode');
             icon.classList.replace('fa-moon', 'fa-sun');
