@@ -37,24 +37,34 @@ theme = []
 [params]
   tagline = "Always Step Ahead"
   
+  # 🖼️ Logo & Favicon
+  # ضع رابط اللوجو الخاص بك هنا (يجب أن يكون رابط مباشر للصورة)
+  logo_url = "https://placehold.co/400x400/314382/ffffff?text=DC" 
+  
   # 📞 Contact Info
   whatsapp = "201062656492"
   phone = "+201062656492"
   email = "info@dentalcircles.com"
+  
+  # 📍 Map Settings (التحكم في الخريطة)
+  enable_map = true
+  map_url = "https://goo.gl/maps/YOUR_MAP_LINK_HERE" # ضع رابط جوجل مابس هنا
   location_ar = "القاهرة، مدينة نصر"
   location_en = "Cairo, Nasr City"
 
-  # 🎨 Colors (Blue & Gold Theme)
+  # 🎨 Colors (New Brand Colors)
   [params.style]
-    primary_bg = "#0f172a"      # Navy Blue
-    card_bg = "#1e293b"         # Darker Slate
-    accent = "#d4af37"          # Gold
-    text = "#f8fafc"            # White-ish
-    text_muted = "#94a3b8"      # Gray
+    primary_bg = "#0f1525"      # خلفية داكنة جداً
+    card_bg = "#1e2538"         # خلفية الكروت
+    accent = "#008D92"          # التركواز (لون التمييز والأزرار)
+    brand_blue = "#314382"      # الأزرق الملكي (لون اللوجو والهيدر)
+    text = "#f8fafc"            # أبيض للنصوص
+    text_muted = "#94a3b8"      # رصاصي فاتح
 
-  # 📊 Marketing
-  google_analytics_id = ""
-  facebook_pixel_id = ""
+  # 📊 Analytics & SEO
+  google_analytics_id = ""      # G-XXXXXXXXXX
+  facebook_pixel_id = ""        # XXXXXXXXXXXXXXX
+  google_console_verify = ""    # كود التحقق
 
 # -----------------------------------------------------------
 # 🏠 محتوى الصفحة الرئيسية (Homepage)
@@ -71,7 +81,7 @@ theme = []
     subtitle_en = "The #1 Continuous Education Platform. Intensive hands-on training by experts."
     btn_en = "Explore Workshops"
 
-  # المميزات (Why Choose Us)
+  # المميزات
   [[params.home.features]]
     icon = "fa-hand-holding-medical"
     title_ar = "تدريب عملي 100%"
@@ -98,24 +108,21 @@ theme = []
   active = true
   image = "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80"
   
-  # General Info (Home Card)
   title_ar = "كورس الحشوات التجميلية"
   desc_ar = "احترف الـ Layering والـ Isolation في يومين مكثفين."
   title_en = "Advanced Operative Course"
   desc_en = "Master Layering & Isolation in 2 intensive days."
   
-  # Landing Page Details
+  # تفاصيل صفحة الهبوط
   date = "20 - 21 March 2025"
   seats = "12 Seats Only"
   instructor_name = "Dr. Ahmed Hassan"
   instructor_bio = "PhD in Operative Dentistry, 15 years of clinical experience."
   instructor_img = "https://randomuser.me/api/portraits/men/32.jpg"
 
-  # Learning Points
   syllabus_ar = ["تجهيز الأسنان (Cavity Prep)", "عزل المطاط (Rubber Dam)", "حشوات أمامية (Anterior)", "Finishing & Polishing"]
   syllabus_en = ["Advanced Cavity Prep", "Rubber Dam Mastery", "Anterior Aesthetics", "Finishing & Polishing"]
 
-  # Packages
   [[params.workshops.operative.packages]]
     name = "Standard"
     price = "3,500 EGP"
@@ -128,38 +135,26 @@ theme = []
     popular = true
     features = ["Everything in Standard", "Front Row Seats", "Premium Dental Kit", "1-on-1 Mentorship"]
 
-# Workshop 2: Endo
+# Workshop 2: Endo (Example)
 [params.workshops.endo]
   active = true
   image = "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=800&q=80"
-  
   title_ar = "كورس علاج الجذور (Rotary)"
-  desc_ar = "تعلم أحدث بروتوكولات الـ Rotary من الألف إلى الياء."
+  desc_ar = "تعلم أحدث بروتوكولات الـ Rotary."
   title_en = "Rotary Endodontics"
-  desc_en = "Master modern Rotary protocols from A to Z."
-  
+  desc_en = "Master modern Rotary protocols."
   date = "25 - 27 March 2025"
   seats = "10 Seats Only"
   instructor_name = "Dr. Sarah Ali"
-  instructor_bio = "MSc Endodontics, Key Opinion Leader."
+  instructor_bio = "MSc Endodontics."
   instructor_img = "https://randomuser.me/api/portraits/women/44.jpg"
-
-  syllabus_ar = ["Access Cavity", "Glide Path Management", "Rotary Shaping", "Obturation Techniques"]
-  syllabus_en = ["Access Cavity", "Glide Path Management", "Rotary Shaping", "Obturation Techniques"]
-
+  syllabus_ar = ["Access Cavity", "Rotary Shaping"]
+  syllabus_en = ["Access Cavity", "Rotary Shaping"]
   [[params.workshops.endo.packages]]
     name = "Basic"
     price = "4,000 EGP"
-    popular = false
-    features = ["3 Days Workshop", "Training on Resin Blocks", "Certificate"]
-
-  [[params.workshops.endo.packages]]
-    name = "Advanced"
-    price = "6,500 EGP"
     popular = true
-    features = ["3 Days Workshop", "Training on Natural Teeth", "Rotary File Kit Included", "Certificate"]
+    features = ["3 Days Workshop", "Certificate"]
 
-# ... (نهاية الملف)
-
-# 🚫 تعطيل الصفحات التي لا نحتاجها (الأرشيف والتصنيفات)
+# 🚫 تعطيل الصفحات غير المستخدمة
 disableKinds = ["taxonomy", "term"]
