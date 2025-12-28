@@ -1,7 +1,7 @@
 baseURL = "https://portfoliohubs.github.io/dental_circles/"
 defaultContentLanguage = "en"
 title = "Dental Circles"
-theme = []
+#theme = []
 
 # -----------------------------------------------------------
 # 🌍 إعدادات اللغات
